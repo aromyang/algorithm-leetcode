@@ -22,11 +22,11 @@ class Solution:
 
         while list1 or list2:
             if not list1:
-                cur = add_node(cur, list2.val)
-                list2 = list2.next
+                cur.next = list2
+                break
             elif not list2:
-                cur = add_node(cur, list1.val)
-                list1 = list1.next
+                cur.next = list1
+                break
             elif list1.val <= list2.val:
                 if not ans:
                     ans = create_node(list1.val)
