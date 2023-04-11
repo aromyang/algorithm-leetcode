@@ -5,9 +5,21 @@
 #         self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head or not head.next:
+        if not head:
             return head
-        new_head = self.reverseList(head.next)
-        head.next.next = head
-        head.next = None
+        
+        linked = []
+        cur = head
+        while cur:
+            linked.append(ListNode(val=cur.val))
+            cur = cur.next
+                
+        reversed_nodes = list(reversed(linked))
+        print(reversed_nodes)
+        new_head = reversed_nodes[0]
+        new_cur = new_head
+        for i in range(1, len(reversed_nodes)):
+            new_cur.next = reversed_nodes[i]
+            new_cur = new_cur.next        
+        
         return new_head
