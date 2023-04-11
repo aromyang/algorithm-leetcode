@@ -8,18 +8,13 @@ class Solution:
         if not head:
             return head
         
-        linked = []
+        prev = None
         cur = head
-        while cur:
-            linked.append(ListNode(val=cur.val))
-            cur = cur.next
-                
-        reversed_nodes = list(reversed(linked))
-        print(reversed_nodes)
-        new_head = reversed_nodes[0]
-        new_cur = new_head
-        for i in range(1, len(reversed_nodes)):
-            new_cur.next = reversed_nodes[i]
-            new_cur = new_cur.next        
         
-        return new_head
+        while cur:
+            next_node = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next_node
+            
+        return prev
