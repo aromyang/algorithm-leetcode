@@ -3,9 +3,7 @@ class Solution:
         nums = {}
         for ss in s:
             nums[ss] = 1 + nums.get(ss, 0)
-        
-        print(nums)
-        
+                
         palindrome = 0
         has_odd = False
         for value in nums.values():
