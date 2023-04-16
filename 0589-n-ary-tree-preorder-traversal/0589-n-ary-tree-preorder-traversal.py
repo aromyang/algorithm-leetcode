@@ -6,19 +6,15 @@ class Node:
         self.children = children
 """
 
-class Solution:
-    def preorder(self, root: 'Node') -> List[int]:
-        if not root:
-            return []
-        
-        ans = [root.val]
-        
-        def traversal(root):
-            if len(root.children) == 0:
-                return
-            for i in range(len(root.children)):
-                ans.append(root.children[i].val)
-                traversal(root.children[i])
-            
-        traversal(root)   
-        return ans
+class Solution(object):
+    def preorder(self, root):
+        output =[]
+        self.dfs(root, output)
+        return output
+    
+    def dfs(self, root, output):
+        if root is None:
+            return
+        output.append(root.val)
+        for child in root.children:
+            self.dfs(child, output)
