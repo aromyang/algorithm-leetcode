@@ -2,8 +2,15 @@ class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
-        
-        sorted_s = ''.join(sorted(s, key=lambda x: x.lower()))
-        sorted_t = ''.join(sorted(t, key=lambda x: x.lower()))
-        
-        return sorted_s == sorted_t
+
+        need = {}
+        for ss in s:
+            need[ss] = need.get(ss, 0) + 1
+
+        for tt in t:
+            if tt not in need or need[tt] <= 0:
+                return False
+            if tt in need:
+                need[tt] = need.get(tt) - 1
+
+        return True
