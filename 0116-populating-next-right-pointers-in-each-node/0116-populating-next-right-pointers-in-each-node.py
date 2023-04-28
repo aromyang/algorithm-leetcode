@@ -25,6 +25,5 @@ class Solution:
                     queue.append(cur_node.left)
                 if cur_node.right:
                     queue.append(cur_node.right)
-                
         
         return root
