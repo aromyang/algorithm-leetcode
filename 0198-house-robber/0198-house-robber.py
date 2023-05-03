@@ -1,15 +1,11 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        houses = len(nums)
         memo = {}
+        memo[0] = 0
+        memo[1] = nums[0]
 
-        def dp(i):
-            if i < 0:
-                return 0
-            if i in memo:
-                return memo[i]
-            
-            result = max(dp(i - 2) + nums[i], dp(i - 1))
-            memo[i] = result
-            return result
+        for i in range(2, houses + 1):
+            memo[i] = max(memo[i - 1], memo[i - 2] + nums[i - 1])
 
-        return dp(len(nums) - 1)
+        return memo[houses]
