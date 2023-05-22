@@ -1,37 +1,24 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        s = s.replace(" ", "")
-        expressions = deque()
-        
-        for ss in s:
-            if ss.isdigit():
-                if expressions and expressions[-1].isdigit():
-                    expressions.append(expressions.pop() + ss)
-                else:
-                    expressions.append(ss)
-            elif ss != '':
-                expressions.append(ss)
-        
-        
-        deq = deque()
-        
-        while expressions:
-            cur = expressions.popleft()
-            if cur == '*':
-                deq.append(int(deq.pop()) * int(expressions.popleft()))
-            elif cur == '/':
-                deq.append(int(deq.pop()) // int(expressions.popleft()))
-            else:
-                deq.append(cur)
-        
-        
-        answer = int(deq.popleft())
-        
-        while deq:
-            cur = deq.popleft()
-            if cur == '+':
-                answer += int(deq.popleft())
-            elif cur == '-':
-                answer -= int(deq.popleft())
-            
-        return answer
+        s = s.replace(' ', '')
+        stack = []
+        cur_num = 0 
+        operator = '+'
+
+        for i in range(len(s)):
+            if s[i].isdigit():
+                cur_num = cur_num * 10 + int(s[i])
+            if not s[i].isdigit() or i == len(s) - 1:
+                if operator == '+':
+                    stack.append(cur_num)
+                elif operator == '-':
+                    stack.append(-cur_num)
+                elif operator == '*':
+                    stack.append(stack.pop() * cur_num)
+                elif operator == '/':
+                    stack.append(int(stack.pop() / cur_num))
+                
+                operator = s[i]
+                cur_num = 0
+                
+        return sum(stack)
