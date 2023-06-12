@@ -1,16 +1,17 @@
 class DataStream:
 
     def __init__(self, value: int, k: int):
-        self.stream = deque([])
         self.k = k
         self.value = value
+        self.answer = 0
 
     def consec(self, num: int) -> bool:
-        if len(self.stream) >= self.k:
-            self.stream.popleft()
-        self.stream.append(num == self.value)
+        if num == self.value:
+            self.answer += 1
+        else:
+            self.answer = 0
                 
-        return all(self.stream) if len(self.stream) >= self.k else False
+        return self.answer >= self.k
         
 
 
