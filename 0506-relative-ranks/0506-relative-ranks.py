@@ -1,17 +1,24 @@
 class Solution:
     def findRelativeRanks(self, score: List[int]) -> List[str]:
-        ranks = sorted(score, reverse=True)
-        answer = []
+        maxHeap = []
+        for i, s in enumerate(score):
+            heappush(maxHeap, (-s, i))
+            
+        answer = [0] * len(score)
+        place = 1
         
-        for s in score:
-            rank = ranks.index(s) + 1
-            if rank == 1:
+        while maxHeap:
+            idx = heappop(maxHeap)[1]
+            if place > 3:
+                rank = str(place)
+            elif place == 1:
                 rank = "Gold Medal"
-            elif rank == 2:
+            elif place == 2:
                 rank = "Silver Medal"
-            elif rank == 3:
+            elif place == 3:
                 rank = "Bronze Medal"
                 
-            answer.append(str(rank))
+            answer[idx] = rank
+            place += 1
             
         return answer
