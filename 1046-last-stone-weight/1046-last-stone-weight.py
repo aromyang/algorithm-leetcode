@@ -4,10 +4,7 @@ class Solution:
         for stone in stones:
             heappush(heap, (-stone, stone))
         
-        print(heap)
-        
         while len(heap) > 1:
-            print(heap)
             one = heappop(heap)[1]
             two = heappop(heap)[1]
             if one != two:
