@@ -1,6 +1,13 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         cnts = Counter(nums)
-        frequents = sorted(list(zip(cnts.values(), cnts.keys())), key = lambda x : x[0], reverse=True)
+        cnts = [(-value, key) for key, value in cnts.items()]
+        heapify(cnts)
         
-        return [x[1] for x in frequents[:k]]
+        answer = []
+        
+        for i in range(k):
+            _, ans = heappop(cnts)
+            answer.append(ans)
+        
+        return answer
