@@ -1,5 +1,3 @@
 class Solution:
     def distributeCandies(self, candyType: List[int]) -> int:
-        types = Counter(candyType)
-        
-        return min(len(types), len(candyType) // 2)
+        return min(len(set(candyType)), len(candyType) // 2)
