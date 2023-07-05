@@ -3,18 +3,8 @@ class Solution:
         if len(s) != len(goal):
             return False
         
-        diff = []
-        cnt = {}
-        
-        for i in range(len(s)):
-            if s[i] != goal[i]:
-                diff.append((s[i], goal[i]))
-            cnt[s[i]] = cnt.get(s[i], 0) + 1
-            
-        if len(diff) == 2 and diff[0] == diff[1][::-1]:
-            return True
-    
-        if len(diff) == 0 and max(cnt.values()) >= 2:
+        if s == goal and len(set(s)) < len(s):
             return True
         
-        return False
+        diffs = [(a, b) for a, b in zip(s, goal) if a != b]
+        return len(diffs) == 2 and diffs[0] == diffs[1][::-1]
