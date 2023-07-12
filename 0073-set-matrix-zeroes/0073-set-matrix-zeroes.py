@@ -3,15 +3,24 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        visited = set()
-        for i, row in enumerate(matrix):
-            for j, cell in enumerate(row):
-                if cell == 0 and (i, j) not in visited:
-                    for cur_j, cur_cell in enumerate(matrix[i]):
-                        if matrix[i][cur_j] != 0:
-                            matrix[i][cur_j] = 0
-                            visited.add((i, cur_j))
-                    for col in range(len(matrix)):
-                        if matrix[col][j] != 0:
-                            matrix[col][j] = 0
-                            visited.add((col, j))
+        m, n = len(matrix), len(matrix[0])
+        first_row_has_zero = not all(matrix[0])
+        first_col_has_zero = not all(row[0] for row in matrix)
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = matrix[0][j] = 0
+
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+
+        if first_row_has_zero:
+            for j in range(n):
+                matrix[0][j] = 0
+
+        if first_col_has_zero:
+            for i in range(m):
+                matrix[i][0] = 0
