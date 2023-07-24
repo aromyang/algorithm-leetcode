@@ -1,15 +1,15 @@
 class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
         ans = []
-        idx1, idx2 = len(num1) - 1, len(num2) - 1
-        go = 0
-        
-        while idx1 >= 0 or idx2 >= 0 or go:
-            n1 = int(num1[idx1]) if idx1 >= 0 else 0
-            n2 = int(num2[idx2]) if idx2 >= 0 else 0
-            go, cur = divmod(n1 + n2 + go, 10)
-            ans.append(str(cur))
-            idx1 -= 1
-            idx2 -= 1
-        
-        return ''.join(ans[::-1])
+        i1, i2 = len(num1) - 1, len(num2) - 1
+        carry = 0
+        while i1 >= 0 or i2 >= 0 or carry > 0:
+            if i1 >= 0:
+                carry += ord(num1[i1]) - ord('0')
+                i1 -= 1
+            if i2 >= 0:
+                carry += ord(num2[i2]) - ord('0')
+                i2 -= 1
+            ans.append(chr(carry % 10 + ord('0')))
+            carry //= 10
+        return "".join(ans)[::-1]
