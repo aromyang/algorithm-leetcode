@@ -1,17 +1,18 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        if numRows == 1:
+        if numRows == 1 or numRows >= len(s):
             return s
         
-        ans = [[] for i in range(numRows)]        
+        ans = ['' for _ in range(numRows)]        
         row = 0
-        app = 1
+        direction = -1
+        
         for ss in s:
-            if row == numRows - 1:
-                app = -1
-            if row == 0:
-                app = 1
-            ans[row].append(ss)
-            row += app
+            ans[row] += ss
+            
+            if row == 0 or row == numRows - 1:
+                direction *= -1
+            
+            row += direction
 
-        return ''.join([''.join(row) for row in ans])
+        return ''.join(ans)
