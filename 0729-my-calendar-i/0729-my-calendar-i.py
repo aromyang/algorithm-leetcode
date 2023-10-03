@@ -4,19 +4,18 @@ class MyCalendar:
         self.cal = []
 
     def book(self, start: int, end: int) -> bool:
-        end -= 1        
-        for c_start, c_end in self.cal:
-            left, right = start, end
-            while left <= right:
-                mid = (left + right) // 2
-                if c_start <= mid <= c_end:
-                    return False
-                elif mid <= c_start:
-                    left = mid + 1
-                else:
-                    right = mid - 1
+        idx_start = bisect.bisect_right(self.cal, start)
         
-        self.cal.append([start, end])
+        if idx_start & 1:
+            return False
+        
+        idx_end = bisect.bisect_left(self.cal, end)
+        if idx_end != idx_start:
+            return False
+        
+        bisect.insort_right(self.cal, start)
+        bisect.insort_left(self.cal, end)
+        
         return True
 
 # Your MyCalendar object will be instantiated and called as such:
