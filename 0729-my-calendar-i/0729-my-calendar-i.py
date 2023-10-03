@@ -13,8 +13,8 @@ class MyCalendar:
         if idx_end != idx_start:
             return False
         
-        bisect.insort_right(self.cal, start)
-        bisect.insort_left(self.cal, end)
+        bisect.insort(self.cal, start)
+        bisect.insort(self.cal, end)
         
         return True
 
