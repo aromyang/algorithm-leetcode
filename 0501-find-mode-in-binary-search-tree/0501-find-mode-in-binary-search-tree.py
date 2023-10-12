@@ -15,12 +15,8 @@ class Solution:
             
             ans[cur_node.val] = ans.get(cur_node.val, 0) + 1
             
-            if not cur_node.left and not cur_node.right:
-                return
-            if cur_node.left:
-                dfs(cur_node.left)
-            if cur_node.right:
-                dfs(cur_node.right)
+            dfs(cur_node.left)
+            dfs(cur_node.right)
         
         dfs(root)
         mode = max(ans.values())
