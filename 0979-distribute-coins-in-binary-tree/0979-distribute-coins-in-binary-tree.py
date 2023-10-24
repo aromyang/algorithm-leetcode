@@ -9,14 +9,14 @@ class Solution:
         self.ans = 0
         def dfs(cur_node):
             if not cur_node:
-                return 0
+                return (0, 0)
             
-            left_coins = dfs(cur_node.left)
-            right_coins = dfs(cur_node.right)
+            left_nodes, left_coins = dfs(cur_node.left)
+            right_nodes, right_coins = dfs(cur_node.right)
             
-            self.ans += abs(left_coins) + abs(right_coins)
+            self.ans += abs(left_nodes - left_coins) + abs(right_nodes - right_coins)
             
-            return cur_node.val + left_coins + right_coins - 1
+            return (left_nodes + right_nodes + 1, left_coins + right_coins + cur_node.val)
             
         
         dfs(root)
