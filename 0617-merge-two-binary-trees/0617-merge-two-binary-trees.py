@@ -9,18 +9,27 @@ class Solution:
         if not root1 or not root2:
             return root1 or root2
         
-        new_node = TreeNode(val=root1.val + root2.val)
+        q1 = deque()
+        q2 = deque()
+        q1.append(root1)
+        q2.append(root2)
         
-        def mergeNodes(node1, node2):
-            if not node1 or not node2:
-                return node1 or node2
+        while q1 and q2:
+            node1 = q1.popleft()
+            node2 = q2.popleft()
             
-            new_node = TreeNode(val=node1.val + node2.val)
-            new_node.left = mergeNodes(node1.left, node2.left)
-            new_node.right = mergeNodes(node1.right, node2.right)
-            return new_node
-        
-        new_node.left = mergeNodes(root1.left, root2.left)
-        new_node.right = mergeNodes(root1.right, root2.right)
-        
-        return new_node
+            node1.val += node2.val
+            
+            if node1.left and node2.left:
+                q1.append(node1.left)
+                q2.append(node2.left)
+            elif not node1.left and node2.left:
+                node1.left = node2.left
+            
+            if node1.right and node2.right:
+                q1.append(node1.right)
+                q2.append(node2.right)
+            elif not node1.right and node2.right:
+                node1.right = node2.right
+            
+        return root1
