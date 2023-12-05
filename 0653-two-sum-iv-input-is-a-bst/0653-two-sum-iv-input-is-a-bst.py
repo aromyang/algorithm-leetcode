@@ -6,15 +6,20 @@
 #         self.right = right
 class Solution:
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
-        def dfs(cur_node, visited):
-            if cur_node is None:
-                return False
+        seen = set()
+        q = deque([root])
+        
+        while q:
+            cur_node = q.popleft()
             
-            if k - cur_node.val in visited:
+            if k - cur_node.val in seen:
                 return True
             
-            visited.add(cur_node.val)
+            seen.add(cur_node.val)
             
-            return dfs(cur_node.left, visited) or dfs(cur_node.right, visited)
+            if cur_node.left:
+                q.append(cur_node.left)
+            if cur_node.right:
+                q.append(cur_node.right)
         
-        return dfs(root, set())
+        return False
