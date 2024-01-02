@@ -5,16 +5,12 @@
 #         self.next = next
 class Solution:
     def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        def removeRights(head):
-            if not head.next:
-                return head.val, head
-            
-            right_val, right_head = removeRights(head.next)
-                    
-            if head.val < right_val:
-                return right_val, right_head
-            else:
-                head.next = right_head
-                return max(head.val, right_val), head
-
-        return removeRights(head)[1]
+        if not head:
+            return None
+        
+        head.next = self.removeNodes(head.next)
+        
+        if head.next and head.val < head.next.val:
+            return head.next
+        
+        return head
