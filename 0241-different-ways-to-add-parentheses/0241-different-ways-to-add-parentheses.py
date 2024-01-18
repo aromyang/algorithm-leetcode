@@ -1,5 +1,7 @@
 class Solution:
     def diffWaysToCompute(self, expression: str) -> List[int]:
+        memo = {}
+        
         def compute(left, right, op):
             results = []
             
@@ -16,6 +18,8 @@ class Solution:
                 
         
         def ways(expression):
+            if expression in memo:
+                return memo[expression]
             if expression.isdigit():
                 return [int(expression)]
             
@@ -28,6 +32,7 @@ class Solution:
                     
                     ans.extend(compute(left, right, char))
                     
+            memo[expression] = ans
             return ans
             
         return ways(expression)
