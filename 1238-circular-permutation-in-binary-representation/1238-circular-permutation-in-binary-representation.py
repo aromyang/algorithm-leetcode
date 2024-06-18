@@ -14,7 +14,7 @@ class Solution:
                     if backtrack(visited, path, new_str, goal):
                         return True
                     
-                    visited.set.remove(new_str)
+                    visited.remove(new_str)
                     path.pop()
             return False
         
