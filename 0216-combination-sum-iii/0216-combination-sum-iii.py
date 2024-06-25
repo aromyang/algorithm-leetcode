@@ -9,7 +9,10 @@ class Solution:
             if n < (start + start + k - 1) * k // 2:
                 return
             for i in range(start, 10):
+                if n - i < 0:
+                    break
                 backtrack(i + 1, k - 1, n - i, path + [i], ans)
+                
         
         ans = []
         backtrack(1, k, n, [], ans)
