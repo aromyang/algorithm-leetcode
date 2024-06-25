@@ -6,6 +6,8 @@ class Solution:
                 return
             if k == 0 or n < 0:
                 return
+            if n < (start + start + k - 1) * k // 2:
+                return
             for i in range(start, 10):
                 backtrack(i + 1, k - 1, n - i, path + [i], ans)
         
